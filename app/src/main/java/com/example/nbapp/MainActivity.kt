@@ -4,61 +4,52 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.airbnb.lottie.LottieComposition
-import com.airbnb.lottie.compose.LottieAnimatable
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieClipSpec
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieAnimatable
-import com.airbnb.lottie.compose.rememberLottieComposition
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.example.nbapp.screens.playerdetail.PlayerDetailScreen
+import com.example.nbapp.screens.playerlist.PlayerListScreen
+import com.example.nbapp.screens.teamdetail.TeamDetailScreen
 import com.example.nbapp.ui.theme.NBAppTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.Serializable
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_anim))
-
             NBAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                    LottieAnimation(
-                        composition,
-                        iterations = LottieConstants.IterateForever
-                    )
+                val navController = rememberNavController()
 
+                NavHost(
+                    navController = navController,
+                    startDestination = PlayerList
+                ) {
+                    composable<PlayerList> {
+                        PlayerListScreen(navController)
+                    }
+                    composable<PlayerDetail> { navBackStackEntry ->
+                        val playerDetail: PlayerDetail = navBackStackEntry.toRoute()
+                        PlayerDetailScreen(playerDetail.playerId, navController)
+                    }
+                    composable<TeamDetail> { navBackStackEntry ->
+                        val teamDetail: TeamDetail = navBackStackEntry.toRoute()
+                        TeamDetailScreen(teamDetail.playerId, navController)
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+@Serializable
+object PlayerList
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NBAppTheme {
-        Greeting("Android")
-    }
-}
+@Serializable
+data class PlayerDetail(val playerId: Int)
+
+@Serializable
+data class TeamDetail(val playerId: Int)
