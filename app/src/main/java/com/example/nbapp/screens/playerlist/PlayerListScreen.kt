@@ -16,7 +16,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,9 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -41,8 +37,8 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.nbapp.PlayerDetail
 import com.example.nbapp.R
-import com.example.nbapp.data.remote.responses.PlayerDto
-import com.example.nbapp.data.remote.responses.TeamDto
+import com.example.nbapp.data.remote.responses.Player
+import com.example.nbapp.data.remote.responses.Team
 import com.example.nbapp.ui.theme.NBABlue
 import com.example.nbapp.ui.theme.NBARed
 import com.example.nbapp.ui.theme.NBAppTheme
@@ -68,7 +64,7 @@ fun PlayerListScreen(
 @Composable
 fun PlayerListComposable(
     isLoading: Boolean,
-    listOfPlayers: List<PlayerDto>,
+    listOfPlayers: List<Player>,
     errorMessage: String,
     onPaginationReached: () -> Unit,
     onPlayerClicked: (Int) -> Unit
@@ -122,7 +118,7 @@ fun PlayerListComposable(
 
 @Composable
 fun PlayerItemView(
-    currentPlayer: PlayerDto,
+    currentPlayer: Player,
     onPlayerClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -165,7 +161,7 @@ fun PlayerListPreview() {
     NBAppTheme {
         PlayerListComposable(
             isLoading = true, listOf(
-                PlayerDto(
+                Player(
                     1,
                     "Franta",
                     "Pepa",
@@ -178,7 +174,7 @@ fun PlayerListPreview() {
                     2008,
                     12,
                     1,
-                    TeamDto(
+                    Team(
                         1,
                         "Eastern",
                         "Atlantic",
@@ -188,7 +184,7 @@ fun PlayerListPreview() {
                         "CHB"
                     )
                 ),
-                PlayerDto(
+                Player(
                     1,
                     "Franta",
                     "Pepa",
@@ -201,7 +197,7 @@ fun PlayerListPreview() {
                     2008,
                     12,
                     1,
-                    TeamDto(
+                    Team(
                         1,
                         "Eastern",
                         "Atlantic",
@@ -211,7 +207,7 @@ fun PlayerListPreview() {
                         "CHB"
                     )
                 ),
-                PlayerDto(
+                Player(
                     1,
                     "Franta",
                     "Pepa",
@@ -224,7 +220,7 @@ fun PlayerListPreview() {
                     2008,
                     12,
                     1,
-                    TeamDto(
+                    Team(
                         1,
                         "Eastern",
                         "Atlantic",

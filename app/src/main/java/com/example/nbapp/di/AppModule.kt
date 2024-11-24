@@ -20,6 +20,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+    }
+
     @Singleton
     @Provides
     fun provideNBAppRepository(
@@ -41,15 +46,17 @@ object AppModule {
             }
         )
 
+    /**
+     * Provides NBAppApi for whole app.
+     *
+     * @return Api Interface with already set up converter, Base URL and authentication.
+     */
     @Singleton
     @Provides
     fun provideNBAppApi(): NBAppApi {
         return Retrofit.Builder()
             .addConverterFactory(
-                Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                }.asConverterFactory(
+                json.asConverterFactory(
                     "application/json; charset=UTF8".toMediaType()
                 )
             )

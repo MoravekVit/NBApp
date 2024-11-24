@@ -2,7 +2,7 @@ package com.example.nbapp.screens.playerlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nbapp.data.remote.responses.PlayerDto
+import com.example.nbapp.data.remote.responses.Player
 import com.example.nbapp.repository.PlayerListRepository
 import com.example.nbapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +21,9 @@ class PlayerListViewModel @Inject constructor(
 
     val playerListState: StateFlow<PlayerListState> = _playerListSate
 
+    /**
+     * We want to download first bunch of players only once.
+     */
     init {
         loadPlayersPaginated()
     }
@@ -70,12 +73,12 @@ class PlayerListViewModel @Inject constructor(
 /**
  * Current state of Player list screen.
  *
- * @param isLoading whether loader should be displayed.
- * @param listOfPlayers contains all currently displayed players
- * @param loadError when API call fails, this is what is displayed to user
+ * @property isLoading whether loader should be displayed.
+ * @property listOfPlayers contains all currently displayed players
+ * @property loadError when API call fails, this is what is displayed to user
  */
 data class PlayerListState(
     val isLoading: Boolean = true,
-    val listOfPlayers: List<PlayerDto> = listOf(),
+    val listOfPlayers: List<Player> = listOf(),
     val loadError: String = ""
 )

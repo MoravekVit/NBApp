@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MetaDto(
+data class Meta(
     @SerialName("prev_cursor")
     val prevCursor: Int? = null,
     @SerialName("next_cursor")

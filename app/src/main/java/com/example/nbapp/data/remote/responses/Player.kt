@@ -1,14 +1,12 @@
 package com.example.nbapp.data.remote.responses
 
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class PlayerDto(
+data class Player(
     @SerialName("id")
     val id: Int,
     @SerialName("first_name")
@@ -34,5 +32,5 @@ data class PlayerDto(
     @SerialName("draft_number")
     val draftNumber: Int?,
     @SerialName("team")
-    val team: TeamDto
+    val team: Team
 )

@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PlayersDataDto(
+data class PlayersData(
     @SerialName("data")
-    val dataList: List<PlayerDto>,
+    val dataList: List<Player>,
     @SerialName("meta")
-    val meta: MetaDto
+    val meta: Meta
 )
