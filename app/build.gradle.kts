@@ -19,7 +19,7 @@ android {
         /**
          * Could be saved in local.properties for safety reasons, this is only to make it easy for testing!
          */
-        val apiKey = "696e1541-1b20-41a 8-a21b-b3bd4cd86449"
+        val apiKey = "696e1541-1b20-41a8-a21b-b3bd4cd86449"
 
         applicationId = "com.example.nbapp"
         minSdk = 24
@@ -30,8 +30,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
-
-        
     }
 
     buildTypes {

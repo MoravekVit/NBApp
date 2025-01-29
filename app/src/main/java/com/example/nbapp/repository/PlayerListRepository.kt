@@ -4,7 +4,6 @@ import com.example.nbapp.data.remote.NBAppApi
 import com.example.nbapp.data.remote.responses.Player
 import com.example.nbapp.util.Constants
 import com.example.nbapp.util.Resource
-import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 class PlayerListRepository @Inject constructor(

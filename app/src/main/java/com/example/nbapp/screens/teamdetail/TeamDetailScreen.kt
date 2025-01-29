@@ -38,13 +38,6 @@ fun TeamDetailScreen(
 ) {
     val teamDetailState by teamDetailViewModel.teamDetailState.collectAsState()
 
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
-    LaunchedEffect(Unit) {
-        lifecycle.repeatOnLifecycle(state = Lifecycle.State.CREATED) {
-            teamDetailViewModel.onScreenOpened(playerId)
-        }
-    }
-
     TeamDetailComposable(teamDetailState.team) {
         navController.popBackStack()
     }

@@ -1,6 +1,9 @@
 package com.example.nbapp.screens.playerdetail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.navigation.toRoute
+import com.example.nbapp.PlayerDetail
 import com.example.nbapp.data.remote.responses.Player
 import com.example.nbapp.repository.PlayerListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,6 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayerDetailViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val repository: PlayerListRepository
 ) : ViewModel() {
 
@@ -18,12 +22,13 @@ class PlayerDetailViewModel @Inject constructor(
     val playerDetailState: StateFlow<PlayerDetailState> = _playerDetailState
 
     /**
-     * Is called onCreate so we know the screen was created and we want to get data from repository.
-     *
-     * @param playerId for which player are we getting data.
+     * Getting navigation argument here for selected player.
      */
-    fun onScreenOpened(playerId: Int) {
-        _playerDetailState.value = PlayerDetailState(repository.playerListCache.first { it.id == playerId })
+    init {
+        val args = savedStateHandle.toRoute<PlayerDetail>()
+        val playerId = args.playerId
+        _playerDetailState.value =
+            PlayerDetailState(repository.playerListCache.first { it.id == playerId })
     }
 }
 
