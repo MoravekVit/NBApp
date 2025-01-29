@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -13,6 +15,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
+
+        /**
+         * Could be saved in local.properties for safety reasons, this is only to make it easy for testing!
+         */
+        val apiKey = "696e1541-1b20-41a 8-a21b-b3bd4cd86449"
+
         applicationId = "com.example.nbapp"
         minSdk = 24
         targetSdk = 35
@@ -20,6 +28,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+
+        
     }
 
     buildTypes {
@@ -39,6 +51,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }

@@ -1,5 +1,6 @@
 package com.example.nbapp.di
 
+import com.example.nbapp.BuildConfig
 import com.example.nbapp.data.remote.NBAppApi
 import com.example.nbapp.repository.PlayerListRepository
 import com.example.nbapp.util.Constants
@@ -40,7 +41,7 @@ object AppModule {
             Interceptor { chain ->
                 val request: Request = chain.request()
                     .newBuilder()
-                    .header("Authorization", "696e1541-1b20-41a8-a21b-b3bd4cd86449")
+                    .header("Authorization", BuildConfig.API_KEY)
                     .build()
                 chain.proceed(request)
             }
